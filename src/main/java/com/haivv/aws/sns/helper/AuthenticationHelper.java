@@ -148,7 +148,7 @@ public class AuthenticationHelper {
      * @param password Password for the SRP request
      * @return the JWT token if the request is successful else null.
      */
-    String PerformSRPAuthentication(String username, String password) {
+    String performSRPAuthentication(String username, String password) {
         String authresult = null;
 
         InitiateAuthRequest initiateAuthRequest = initiateUserSrpAuthRequest(username);

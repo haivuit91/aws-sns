@@ -5,10 +5,14 @@ spring:
     web-application-type: none
 
 aws:
-  region: us-east-2
+  accessKey:
+  secretKey:
+  region: ap-northeast-1
   sns:
     name:
     topic:
+      arn:
+    platformApplication:
       arn:
   cognito:
     poolId:

@@ -17,4 +17,20 @@ public class AmazonSNSServiceTest {
     public void publish() {
         service.publish("Test publish notice");
     }
+
+    @Test
+    public void createEndpoint() {
+        String endpointArn = service.createEndpoint("5ecdc78325c3fd00282d640a");
+        service.subscribeTopic(endpointArn);
+    }
+
+    @Test
+    public void publishToTargetArn() {
+        service.publishToTargetArn("", "Test publish to target ARN");
+    }
+
+    @Test
+    public void getEndpointArn() {
+        service.getEndpointArn();
+    }
 }

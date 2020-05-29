@@ -1,11 +1,13 @@
 package com.haivv.aws.sns.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentity.model.Credentials;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.AmazonSNSClientBuilder;
+import com.amazonaws.services.sns.model.PlatformApplication;
 import com.amazonaws.services.sns.model.Topic;
 import com.haivv.aws.sns.helper.CognitoHelper;
 import com.haivv.aws.sns.helper.CognitoJWTParser;
@@ -26,6 +28,11 @@ public class AmazonClientConfig {
     }
 
     @Bean
+    public PlatformApplication platformApplication() {
+        return new PlatformApplication().withPlatformApplicationArn(amazonProperties.getSns().getPlatformApplication().getArn());
+    }
+
+    @Bean
     public AmazonSNS amazonSNS(CognitoHelper helper) {
         String result = helper.validateUser(amazonProperties.getCognito().getUserName(), amazonProperties.getCognito().getUserPass());
 
@@ -34,7 +41,8 @@ public class AmazonClientConfig {
 
         Credentials credentials = helper.getCredentials(provider, result);
 
-        BasicSessionCredentials awsCreds = new BasicSessionCredentials(credentials.getAccessKeyId(), credentials.getSecretKey(), credentials.getSessionToken());
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(amazonProperties.getAccessKey(), amazonProperties.getSecretKey());
+//        BasicSessionCredentials awsCreds = new BasicSessionCredentials(credentials.getAccessKeyId(), credentials.getSecretKey(), credentials.getSessionToken());
 
         return AmazonSNSClientBuilder.standard()
                 .withRegion(Regions.fromName(amazonProperties.getRegion()))

@@ -34,7 +34,7 @@ public class CognitoHelper {
     public String validateUser(String username, String password) {
         AuthenticationHelper helper = new AuthenticationHelper(amazonProperties.getCognito().getPoolId(),
                 amazonProperties.getCognito().getClientAppId(), amazonProperties.getRegion());
-        return helper.PerformSRPAuthentication(username, password);
+        return helper.performSRPAuthentication(username, password);
     }
 
     /**

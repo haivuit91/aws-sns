@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 @Data
 public class AmazonProperties {
 
+    private String accessKey;
+    private String secretKey;
     private String region;
     private SNS sns;
     private Cognito cognito;
@@ -19,10 +21,16 @@ public class AmazonProperties {
     public static class SNS {
         private String name;
         private Topic topic;
+        private PlatformApplication platformApplication;
     }
 
     @Data
     public static class Topic {
+        private String arn;
+    }
+
+    @Data
+    public static class PlatformApplication {
         private String arn;
     }
 
